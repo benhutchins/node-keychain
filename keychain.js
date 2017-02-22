@@ -1,5 +1,5 @@
 /*!
- * node-keyring
+ * node-keychain
  *
  * Maintained by:
  *  Nicholas Penree <nick@penree.com>
@@ -61,7 +61,7 @@ KeychainAccess.prototype.getPassword = function (opts, fn) {
   opts.service = utf8safe.encode(opts.service)
 
   this.platform.get(opts, function (err, password) {
-    fn(err, password ? utf8safe.decode(password) : null)
+    fn(err, password ? utf8safe.decode(password, 'base64') : null)
   })
 }
 
@@ -94,7 +94,7 @@ KeychainAccess.prototype.setPassword = function (opts, fn) {
 
   opts.account = utf8safe.encode(opts.account)
   opts.service = utf8safe.encode(opts.service)
-  opts.password = utf8safe.encode(opts.password)
+  opts.password = utf8safe.encode(opts.password, 'base64')
 
   this.platform.set(opts, fn)
 }
@@ -136,11 +136,11 @@ var noop = function () {}
 KeychainAccess.errors = errors
 
 var utf8safe = {
-  encode: function (str) {
-    return new Buffer(str).toString('base64')
+  encode: function (str, format) {
+    return new Buffer(str).toString(format || 'utf8')
   },
-  decode: function (str) {
-    return new Buffer(str, 'base64').toString('utf8')
+  decode: function (str, fromFormat) {
+    return new Buffer(str, fromFormat || 'utf8').toString('utf8')
   }
 }
 
