@@ -56,7 +56,6 @@ Available params you can pass to the options object:
 | `account` | Specify account name (required) |
 | `service` | Specify service name (required) |
 | `password` | Specify password to be added (required for `setPassword`) |
-| `type` | The type of password to get or save. Supported values are `generic` and `internet`. See [docs](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/security.1.html). Default: `generic` |
 
 ## Contributors
 
